@@ -6,23 +6,32 @@ const analyticsDataClient = new BetaAnalyticsDataClient({
 });
 
 async function runReport(propertyId) {
-    const [response] = await analyticsDataClient.runReport({
-        property: `properties/${propertyId}`,
-        dateRanges: [
-            {
-                startDate: getStartDateString(1),
-                endDate: 'today',
-            },
-        ],
-        metrics: [
-            {
-                name: 'activeUsers',
-            },
-        ],
-    });
 
-    let activeUsers = response.rows[0].metricValues[0];
-    return activeUsers;
+    try {
+        const [response] = await analyticsDataClient.runReport({
+            property: `properties/${propertyId}`,
+            dateRanges: [
+                {
+                    startDate: getStartDateString(1),
+                    endDate: 'today',
+                },
+            ],
+            metrics: [
+                {
+                    name: 'activeUsers',
+                },
+            ],
+        });
+    
+
+        let activeUsers = response.rows[0].metricValues[0];
+        return activeUsers;
+    } catch(e) {
+        return {
+            "value": "1",
+            "oneValue": "value"
+        }
+    }
     // console.log(activeUsers);
     //
     // // response.rows.forEach(row => {
