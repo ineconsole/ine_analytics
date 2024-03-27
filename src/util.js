@@ -12,7 +12,7 @@ async function runReport(propertyId) {
             property: `properties/${propertyId}`,
             dateRanges: [
                 {
-                    startDate: getStartDateString(1),
+                    startDate: getStartDateString(7),
                     endDate: 'today',
                 },
             ],
